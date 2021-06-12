@@ -910,5 +910,7 @@ asmlinkage long sys_stack_pop(void);
 asmlinkage long sys_hello_world(void);
 asmlinkage long sys_stop_process(int pid);
 asmlinkage long sys_continue_process(void);
+asmlinkage long sys_init_semaphore(unsigned int initial_value);
+asmlinkage long sys_up_2(void);
 
 #endif
