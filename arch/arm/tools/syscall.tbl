@@ -420,3 +420,4 @@
 403	common 	write_device		sys_write_device
 404 common  init_semaphore		sys_init_semaphore
 405 common  up_2					sys_up_2
+406 common  down_2					sys_down_2
