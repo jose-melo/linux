@@ -17,6 +17,11 @@ asmlinkage long sys_init_semaphore(unsigned int initial_value)
 	size_t semaphore_size = sizeof(struct semaphore_s);
 	semaphore *sem = (semaphore *)kmalloc(semaphore_size, GFP_KERNEL);
 
+	if (!sem || semaphore_idx >= _TABLE_SIZE)
+	{
+		return -1;
+	}
+
 	*sem = (semaphore){
 		.lock = __RAW_SPIN_LOCK_UNLOCKED(sem->lock),
 		.count = initial_value,

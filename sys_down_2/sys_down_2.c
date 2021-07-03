@@ -15,7 +15,7 @@ asmlinkage long sys_down_2(int sem_id)
 	unsigned long flags;
 
 	size_t semaphore_waiter_size = sizeof(struct semaphore_waiter);
-	struct semaphore_waiter waiter;
+	struct semaphore_waiter *waiter = kmalloc(semaphore_waiter_size, GFP_KERNEL);
 
 	raw_spin_lock_irqsave(&sem->lock, flags);
 	if (sem->count > 0)
@@ -24,9 +24,14 @@ asmlinkage long sys_down_2(int sem_id)
 	}
 	else
 	{
-		list_add_tail(&waiter.list, &sem->wait_list);
-		waiter.task = current;
-		waiter.up = false;
+		if (!waiter)
+		{
+			return -1;
+		}
+
+		list_add_tail(&waiter->list, &sem->wait_list);
+		waiter->task = current;
+		waiter->up = false;
 		current->state = TASK_UNINTERRUPTIBLE;
 
 		printk("[KERNEL] sys_down_2 ~ esse processo vai dormir = %d \n", current->pid);
