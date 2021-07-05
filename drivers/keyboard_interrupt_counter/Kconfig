@@ -1,0 +1,10 @@
+menu "KEYBOARD_INTERRUPT_COUNTER Driver "
+comment "KEYBOARD_INTERRUPT_COUNTER Driver Config"
+ 
+config KEYBOARD_INTERRUPT_COUNTER
+	tristate "keyboard_interrupt_counter test"
+	default m
+	help
+	This is the keyboard_interrupt_counter test driver --by alguem.
+ 
+endmenu
